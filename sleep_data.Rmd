@@ -1,0 +1,70 @@
+---
+title: "Analysing Student's Sleep Data"
+author: "Riya Chhikara"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Introduction
+In this file,the Student's Sleep Dataset is analysed, which is a built-in dataset in R. The dataset contains information related to sleep patterns. 
+
+### About the dataset: 
+A data frame with 20 observations on 3 variables.
+
+[, 1]	extra	numeric	increase in hours of sleep
+[, 2]	group	factor	drug given
+[, 3]	ID	factor	patient ID
+
+The group variable name may be misleading about the data: They represent measurements on 10 persons, not in groups.
+
+### Source
+Cushny, A. R. and Peebles, A. R. (1905) The action of optical isomers: II hyoscines. The Journal of Physiology 32, 501–510.
+
+Student (1908) The probable error of the mean. Biometrika, 6, 20.
+
+### References
+Scheffé, Henry (1959) The Analysis of Variance. New York, NY: Wiley.
+
+# Data Transformation
+```{r}
+# Loading the sleep dataset
+data(sleep)
+
+# Displaying the dataset structure
+str(sleep)
+
+# Function to transform the sleep data
+transform_sleep_data <- function(data, output) {
+    if (output == "numeric") {
+        data$extra_binary <- as.numeric(data$extra > 0) 
+    } else if (output == "words") {
+        data$extra_binary <- ifelse(data$extra > 0, "Yes", "No")
+    }
+    # Returning the transformed data
+    return(data)
+}
+```
+
+In this dataset, the extra column indicates the increase in hours of sleep. We want to create a new column that transforms this data into binary results:
+
+- 1 for an increase in sleep.
+- 0 for no increase in sleep.
+There are two options for this transformation: numeric (1 or 0) or words (Yes or No).
+The transform_sleep_data function creates a new column in the dataset (extra_binary) based on the selected output format. In Example 1, we chose "words," and the result is shown in the first few rows of the transformed dataset.In Example 2, we chose "numeric".
+
+## Example 1 
+```{r}
+# Calling the function to transform the sleep dataset into words
+new_sleep_data_words <- transform_sleep_data(sleep, "words")
+
+# Displaying the first few rows of the transformed dataset
+head(new_sleep_data_words)
+```
+
+## Example 2 
+```{r}
+# Calling the function to transform the sleep dataset into numeric
+new_sleep_data_words <- transform_sleep_data(sleep, "numeric")
+
+# Displaying the first few rows of the transformed dataset
+head(new_sleep_data_words)
+
