@@ -25,5 +25,5 @@ transform_sleep_data <- function(data, output) {
 # Calling the function to transform the sleep dataset
 new_sleep_data <- transform_sleep_data(sleep, "words")
 
-# View the first few rows of the new datasettttttttttttttt
+# View the first few rows of the new dataset
 head(new_sleep_data)
